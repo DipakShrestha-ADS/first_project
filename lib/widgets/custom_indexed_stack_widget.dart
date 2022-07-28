@@ -41,9 +41,84 @@ class _CustomIndexedStackWidgetState extends State<CustomIndexedStackWidget> {
           setState(() {});
         },
       ),
-      body: IndexedStack(
-        index: index,
-        children: widgetList,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      index = 0;
+                      setState(() {});
+                    },
+                    child: Text(
+                      'Red',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      index = 1;
+                      setState(() {});
+                    },
+                    child: Text(
+                      'Yellow',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      index = 2;
+                      setState(() {});
+                    },
+                    child: Text(
+                      'Blue',
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      index = 0;
+                      setState(() {});
+                    },
+                    child: Text(
+                      'Red',
+                    ),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      index = 1;
+                      setState(() {});
+                    },
+                    child: Text(
+                      'Yellow',
+                    ),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      index = 2;
+                      setState(() {});
+                    },
+                    child: Text(
+                      'Blue',
+                    ),
+                  ),
+                ],
+              ),
+              IndexedStack(
+                index: index,
+                children: widgetList,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
