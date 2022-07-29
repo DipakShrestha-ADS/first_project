@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomIndexedStackWidget extends StatefulWidget {
-  const CustomIndexedStackWidget({Key? key}) : super(key: key);
-
+  const CustomIndexedStackWidget({Key? key, required this.title}) : super(key: key);
+  final String title;
   @override
   State<CustomIndexedStackWidget> createState() => _CustomIndexedStackWidgetState();
 }
@@ -31,6 +31,20 @@ class _CustomIndexedStackWidgetState extends State<CustomIndexedStackWidget> {
       ),
     ];
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        title: Text('${widget.title}'),
+        leading: GestureDetector(
+          onTap: () {
+            print('arrow back clicked');
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.home,
+            color: Colors.white,
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (index < widgetList.length - 1) {
@@ -43,78 +57,96 @@ class _CustomIndexedStackWidgetState extends State<CustomIndexedStackWidget> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
+          child: Stack(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              Column(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      index = 0;
-                      setState(() {});
-                    },
-                    child: Text(
-                      'Red',
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          index = 0;
+                          setState(() {});
+                        },
+                        child: Text(
+                          'Red',
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          index = 1;
+                          setState(() {});
+                        },
+                        child: const Text(
+                          'Yellow',
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          index = 2;
+                          setState(() {});
+                        },
+                        child: Text(
+                          'Blue',
+                        ),
+                      ),
+                    ],
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      index = 1;
-                      setState(() {});
-                    },
-                    child: Text(
-                      'Yellow',
-                    ),
+                  SizedBox(
+                    height: 10,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      index = 2;
-                      setState(() {});
-                    },
-                    child: Text(
-                      'Blue',
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () {
+                          index = 0;
+                          setState(() {});
+                        },
+                        child: Text(
+                          'Red',
+                        ),
+                      ),
+                      OutlinedButton(
+                        onPressed: () {
+                          index = 1;
+                          setState(() {});
+                        },
+                        child: Text(
+                          'Yellow',
+                        ),
+                      ),
+                      OutlinedButton(
+                        onPressed: () {
+                          index = 2;
+                          setState(() {});
+                        },
+                        child: Text(
+                          'Blue',
+                        ),
+                      ),
+                    ],
+                  ),
+                  IndexedStack(
+                    index: index,
+                    children: widgetList,
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  OutlinedButton(
-                    onPressed: () {
+              Positioned(
+                left: 130,
+                top: 50,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    if (index < widgetList.length - 1) {
+                      index++;
+                    } else {
                       index = 0;
-                      setState(() {});
-                    },
-                    child: Text(
-                      'Red',
-                    ),
-                  ),
-                  OutlinedButton(
-                    onPressed: () {
-                      index = 1;
-                      setState(() {});
-                    },
-                    child: Text(
-                      'Yellow',
-                    ),
-                  ),
-                  OutlinedButton(
-                    onPressed: () {
-                      index = 2;
-                      setState(() {});
-                    },
-                    child: Text(
-                      'Blue',
-                    ),
-                  ),
-                ],
-              ),
-              IndexedStack(
-                index: index,
-                children: widgetList,
+                    }
+                    setState(() {});
+                  },
+                ),
               ),
             ],
           ),
